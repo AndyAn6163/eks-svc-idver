@@ -15,12 +15,12 @@ import lombok.ToString;
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class IdverRqesut {
+public class IdverRequest {
 	
-	@JsonProperty("FUNCTION")
+	@JsonProperty("SVCTYPE")
 	@Pattern(regexp="^(1|2)$",message="資料檢核有誤，身分證服務使用方式只有1隨機產生合法身分證、2驗證身分證是否合法")  
 	@Valid
-	private String function;
+	private String svcType;
 	
 	@JsonProperty("ID")
 	@Pattern(regexp = "^[A-Z]{1}[1-2]{1}[\\d]{8}$", message = "資料檢核有誤, ID 欄位應為中華民國身分證合法規則")
