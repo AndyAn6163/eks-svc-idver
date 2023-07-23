@@ -38,6 +38,8 @@ public class IdverServiceImpl implements IdverService {
 		Response<IdverResponse> response = new Response<>();
 		IdverResponse idverResponse = new IdverResponse();
 		DtoHeader dtoHeader = new DtoHeader();
+		dtoHeader.setEventId(request.getDtoHeader().getEventId());
+		dtoHeader.setSvcId(request.getDtoHeader().getSvcId());
 		
 		String svcType = request.getRequest().getSvcType();
 		String id = request.getRequest().getId();
@@ -51,6 +53,8 @@ public class IdverServiceImpl implements IdverService {
 			idverResponse.setIdCount(idCount);
 			idverResponse.setIdList(listRandomID);
 			dtoHeader.setResponseCodeAndDesc(ResponseCodeEnum.SUCCESS);
+			response.setDtoHeader(dtoHeader);
+			response.setResponse(idverResponse);
 		}
 		
 		else if (Integer.valueOf(svcType)==2&&id!=null) {
@@ -58,11 +62,17 @@ public class IdverServiceImpl implements IdverService {
 			logger.info("IdVerificationServiceImpl query (身分證服務): SVCTYPE = 2 (檢查ID是否合法), ID = {}", id);
 			
 			if(computerService.checkIdValid(id)) {
+				idverResponse.setId(id);
 				idverResponse.setCheckResult("valid");
 				dtoHeader.setResponseCodeAndDesc(ResponseCodeEnum.SUCCESS);	
+				response.setDtoHeader(dtoHeader);
+				response.setResponse(idverResponse);
 			}else {
-				idverResponse.setCheckResult("valid");
-				dtoHeader.setResponseCodeAndDesc(ResponseCodeEnum.SUCCESS);		
+				idverResponse.setId(id);
+				idverResponse.setCheckResult("invalid");
+				dtoHeader.setResponseCodeAndDesc(ResponseCodeEnum.SUCCESS);	
+				response.setDtoHeader(dtoHeader);
+				response.setResponse(idverResponse);
 			}
 			
 		}
@@ -83,7 +93,9 @@ public class IdverServiceImpl implements IdverService {
 					randomId=computerService.createInvalidRandomId(1).get(0);
 					logger.info("IdVerificationServiceImpl query (身分證服務): SVCTYPE = 3 (驗證其他身分證服務是否正常), 隨機產生不合法ID = {}", randomId);
 				}
-								
+				
+				dtoHeader.setResponseCodeAndDesc(ResponseCodeEnum.E003);	
+				response.setDtoHeader(dtoHeader);
 				//request.getRequest().setId(randomId);		
 				//Response apiResponse= gatewayComponent.callApi(request, new ParameterizedTypeReference<Response>(){});		
 				//logger.info("IdVerificationServiceImpl call API checkid: randomId = {}, result = {}", randomId, apiResponse.getCheck());
@@ -92,10 +104,10 @@ public class IdverServiceImpl implements IdverService {
 			
 		else {
 			dtoHeader.setResponseCodeAndDesc(ResponseCodeEnum.E001);	
+			response.setDtoHeader(dtoHeader);
 		}
-		
-		response.setDtoHeader(dtoHeader);
-		response.setResponse(idverResponse);
+
+		System.out.println(response.toString());
 		return response;
 	}
 	

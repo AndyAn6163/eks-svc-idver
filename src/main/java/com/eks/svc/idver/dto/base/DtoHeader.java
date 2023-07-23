@@ -1,6 +1,7 @@
 package com.eks.svc.idver.dto.base;
 
 import com.eks.svc.idver.enums.ResponseCodeEnum;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,6 +14,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown=true, value="responseCodeAndDesc")
 public class DtoHeader {
 	
 	@JsonProperty("EVENTID")
@@ -31,7 +33,7 @@ public class DtoHeader {
 	
 	public void setResponseCodeAndDesc(ResponseCodeEnum responseCodeEnum) {
 		this.setResponseCode(responseCodeEnum.getResponseCode());
-		this.setResponseDesc(responseCodeEnum.getResponseCode());
+		this.setResponseDesc(responseCodeEnum.getResponseDesc());
 	}
 		
 }
