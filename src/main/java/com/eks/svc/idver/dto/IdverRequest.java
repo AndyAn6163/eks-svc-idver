@@ -18,7 +18,7 @@ import lombok.ToString;
 public class IdverRequest {
 	
 	@JsonProperty("SVCTYPE")
-	@Pattern(regexp="^(1|2)$",message="資料檢核有誤，身分證服務使用方式只有1隨機產生合法身分證、2驗證身分證是否合法")  
+	@Pattern(regexp="^(1|2|3)$",message="資料檢核有誤，身分證服務使用方式只有1隨機產生合法身分證、2驗證身分證是否合法、3驗證其他身分證服務是否正常")  
 	@Valid
 	private String svcType;
 	

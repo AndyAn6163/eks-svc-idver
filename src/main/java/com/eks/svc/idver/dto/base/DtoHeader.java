@@ -30,9 +30,8 @@ public class DtoHeader {
 	private String responseDesc;
 	
 	public void setResponseCodeAndDesc(ResponseCodeEnum responseCodeEnum) {
-		DtoHeader dtoHeader = new DtoHeader();
-		dtoHeader.setResponseCode(responseCodeEnum.getResponseCode());
-		dtoHeader.setResponseDesc(responseCodeEnum.getResponseCode());
+		this.setResponseCode(responseCodeEnum.getResponseCode());
+		this.setResponseDesc(responseCodeEnum.getResponseCode());
 	}
 		
 }
