@@ -1,7 +1,10 @@
 # Docker images can be inherited from other images.
 
 # Choose base image JDK (含 linux/amd64 及 JDK 軟體)
-FROM eclipse-temurin:17.0.7_7-jdk-focal
+# 230MB    FROM eclipse-temurin:17.0.7_7-jdk-focal
+# 181.71MB FROM openjdk:17-jdk-alpine
+# 55.14MB  FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:17-jre-alpine
 
 # Set the image’s working directory
 WORKDIR /app
