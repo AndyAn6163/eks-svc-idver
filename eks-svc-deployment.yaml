@@ -1,0 +1,45 @@
+# eks-svc-deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+# deployment metadata
+metadata:
+  name: eks-svc-deployment
+  namespace: eks-svc
+  labels:
+    app: eks-svc-idver
+spec:
+  replicas: 3
+  # replicaset 的效果套用在帶有 app=eks-svc-mid-helloworld 的 pod 上
+  # 必須要與下面的 pod label 有相符合
+  selector:
+    matchLabels:
+      app: eks-svc-idver
+  # .spec.template 其實就是 pod 的定義
+  template:
+    # pod metadata
+    metadata:
+      # 設定給 pod 的 label 資訊
+      labels:
+        app: eks-svc-idver
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/arch
+                    operator: In
+                    values:
+                      - amd64
+                      - arm64
+      # 這個 pod 只運行了一個 java app container，但實際可以運行很多個
+      containers:
+        - name: eks-svc-idver
+          image: docker.io/andyan6163/eks-svc-idver:20230724
+          ports:
+            - name: http
+              containerPort: 8080
+          imagePullPolicy: IfNotPresent
+      nodeSelector:
+        kubernetes.io/os: linux

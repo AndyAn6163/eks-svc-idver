@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: eks-svc-idver-service
+  namespace: eks-svc
+  labels:
+    app: eks-svc-idver
+spec:
+  selector:
+    app: eks-svc-idver
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
