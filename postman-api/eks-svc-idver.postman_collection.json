@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "d6bcf424-9cac-435b-b5a0-6b72568c0a5c",
+		"name": "eks-svc-idver",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28706167"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/query : SVCTYPE 1 隨機產生合法ID",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"REQUESTHEADER\": {\r\n    \"EVENTID\": \"20230723001\",\r\n    \"SVCID\": \"eks-svc-idver\"\r\n  },\r\n  \"REQUEST\": {\r\n    \"SVCTYPE\": \"1\",\r\n    \"IDCOUNT\": \"10\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/query",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"query"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/query : SVCTYPE 2 檢查ID是否合法",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"REQUESTHEADER\": {\r\n    \"EVENTID\": \"20230723002\",\r\n    \"SVCID\": \"eks-svc-idver\"\r\n  },\r\n  \"REQUEST\": {\r\n    \"SVCTYPE\": \"2\",\r\n    \"ID\": \"B122786163\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/query",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"query"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/query : SVCTYPE 3 驗證其他身分證服務是否正常",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"REQUESTHEADER\": {\r\n    \"EVENTID\": \"20230723003\",\r\n    \"SVCID\": \"eks-svc-idver\"\r\n  },\r\n  \"REQUEST\": {\r\n    \"SVCTYPE\": \"3\",\r\n    \"IDCOUNT\": \"2\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/query",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"query"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/query : 缺少必要欄位",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"REQUESTHEADER\": {\r\n    \"EVENTID\": \"20230723004\",\r\n    \"SVCID\": \"eks-svc-idver\"\r\n  },\r\n  \"REQUEST\": {\r\n    \"SVCTYPE\": \"1\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/query",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"query"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/query : 請求格式錯誤",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"REQUESTHEADER\": {\r\n  },\r\n  \"REQUEST\": {\r\n    \"SVCTYPE\": \"3\",\r\n    \"IDCOUNT\": \"-8\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/query",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"query"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
